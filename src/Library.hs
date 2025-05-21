@@ -1,6 +1,7 @@
 module Library where
 import PdePreludat
 
+
 doble :: Number -> Number
 doble numero = numero + numero
 
@@ -11,7 +12,7 @@ data Campeon = UnCampeon {
     habilidades :: [String]
 } deriving (Show,Eq)
 
-data Posicion = TOP | ADC | SUPP | JG deriving (Show,Eq)
+data Posicion = TOP | ADC | SUPP | JG | MID deriving (Show,Eq)
 
 chogath :: Campeon
 chogath = UnCampeon 15 8 TOP ["Ruptura", "Grito salvaje", "Clavos vorpalinos", "Festín"]
@@ -46,7 +47,33 @@ estaPreparado = (==5).length
 
 estaEnEarly :: Campeon -> [String]
 estaEnEarly campeon | nivel campeon  < 6 = take 3 (habilidades campeon)
-                    | habilidades campeon
+                    | otherwise = habilidades campeon
+
+
+
+puedeCarrear :: Campeon -> Bool
+puedeCarrear campeon = suPosicion campeon || estaRoto campeon
+
+suPosicion :: Campeon -> Bool
+suPosicion = tienePosicion.posicion
+
+tienePosicion :: Posicion-> Bool
+tienePosicion posicion = elem posicion [TOP,MID,ADC] 
+
+puedeGanar :: [Campeon] -> Bool
+puedeGanar = any puedeCarrear 
+
+esInvencible :: [Campeon] -> Bool
+esInvencible = all estaRoto2
+
+aptosParaLaTeamfight :: [Campeon] -> [Campeon]
+aptosParaLaTeamfight = filter noEnEarly
+
+noEnEarly :: Campeon -> Bool
+noEnEarly = (3<).length.estaEnEarly
+
+baron :: [Campeon] -> [Campeon]
+baron = map subirDeNivel 
 
 
 
