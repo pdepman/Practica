@@ -70,7 +70,7 @@ aptosParaLaTeamfight :: [Campeon] -> [Campeon]
 aptosParaLaTeamfight = filter noEnEarly
 
 noEnEarly :: Campeon -> Bool
-noEnEarly = (3<).length.estaEnEarly
+noEnEarly = (>3).length.estaEnEarly
 
 baron :: [Campeon] -> [Campeon]
 baron = map subirDeNivel 
