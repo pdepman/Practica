@@ -45,8 +45,8 @@ estaPreparado :: [Campeon] -> Bool
 estaPreparado = (==5).length
 
 estaEnEarly :: Campeon -> [String]
-estaEnEarly campeon | nivel campeon  < 6= take 3 (habilidades campeon)
-
+estaEnEarly campeon | nivel campeon  < 6 = take 3 (habilidades campeon)
+                    | habilidades campeon
 
 
 
